@@ -1,0 +1,51 @@
+CREATE TABLE IF NOT EXISTS Genre (
+    id SERIAL PRIMARY KEY REFERENCES Singer(genre_id),
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Singer (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    genre_id INTEGER REFERENCES Genre(id)
+);
+
+CREATE TABLE IF NOT EXISTS Album (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    singer_id INTEGER REFERENCES Singer(id),
+    year TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Track (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    album_id INTEGER,
+    duration INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Collection (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    track_id INTEGER REFERENCES Track(id),
+    duration INTEGER NOT NULL
+);
+
+-- Доп. Задание
+
+CREATE TABLE IF NOT EXISTS Department (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Chief (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    department_id INTEGER REFERENCES Department(id)
+);
+
+CREATE TABLE IF NOT EXISTS Staff (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    department_id INTEGER REFERENCES Department(id),
+    chief_id INTEGER REFERENCES Chief(id)
+);

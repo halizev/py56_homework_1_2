@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Album (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     singer_id INTEGER REFERENCES Singer(id),
-    year TEXT NOT NULL
+    year INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Track (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Collection (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     track_id INTEGER REFERENCES Track(id),
-    year TEXT NOT NULL
+    year INTEGER NOT NULL
 );
 
 -- Доп. Задание

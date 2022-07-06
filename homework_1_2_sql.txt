@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Collection (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     track_id INTEGER REFERENCES Track(id),
-    duration INTEGER NOT NULL
+    year TEXT NOT NULL
 );
 
 -- Доп. Задание

@@ -1,18 +1,12 @@
-CREATE TABLE IF NOT EXISTS Genre (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS Singer (
+CREATE TABLE IF NOT EXISTS Collection (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    genre_id INTEGER REFERENCES Genre(id)
+    year INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Album (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    singer_id INTEGER REFERENCES Singer(id),
     year INTEGER NOT NULL
 );
 
@@ -23,12 +17,35 @@ CREATE TABLE IF NOT EXISTS Track (
     duration TIME NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Collection (
+CREATE TABLE IF NOT EXISTS Collection_Track (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    track_id INTEGER REFERENCES Track(id),
-    year INTEGER NOT NULL
+    collection_id INTEGER NOT NULL REFERENCES Collection(id),
+    track_id INTEGER NOT NULL REFERENCES Track(id)
 );
+
+
+CREATE TABLE IF NOT EXISTS Singer (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Singer_Album (
+    id SERIAL PRIMARY KEY,
+    singer_id INTEGER NOT NULL REFERENCES Singer(id),
+    album_id INTEGER NOT NULL REFERENCES Album(id)
+);
+
+CREATE TABLE IF NOT EXISTS Genre (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Genre_Singer (
+    id SERIAL PRIMARY KEY,
+    genre_id INTEGER NOT NULL REFERENCES Genre(id),
+    singer_id INTEGER NOT NULL REFERENCES Singer(id)
+);
+
 
 -- Доп. Задание
 
@@ -37,15 +54,9 @@ CREATE TABLE IF NOT EXISTS Department (
     name TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Chief (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    department_id INTEGER REFERENCES Department(id)
-);
-
 CREATE TABLE IF NOT EXISTS Staff (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     department_id INTEGER REFERENCES Department(id),
-    chief_id INTEGER REFERENCES Chief(id)
+    chief_id INTEGER REFERENCES Staff(id)
 );
